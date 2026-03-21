@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const protect = require("./middlewares/authMiddleware");
@@ -11,6 +12,7 @@ const app = express();
 connectDB();
 // Middleware to read JSON
 app.use(express.json());
+app.use(cors());
 app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
 app.get("/api/protected", protect, (req, res) => {
